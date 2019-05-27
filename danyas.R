@@ -59,7 +59,7 @@ for (i in 2:126) {
 }
 GMSTdstart <- GMSTd
 
-#now we begin the graphs for the future pathways
+#now we begin the graphs for the future pathways @TOM PLEASE take a look at this and see if there's a better way to do this
 #set up the data for eq co2 2.6 pathway
 futureTime <- read.table("RCP3PD_MIDYR_CONC.txt")[116:536, 1]
 co2eq_26 <- read.table("RCP3PD_MIDYR_CONC.txt")[116:536, 2]
@@ -189,15 +189,12 @@ ui <- navbarPage("Climate Model",
                 br(),
                 checkboxGroupButtons(inputId = "tasks", choices = c("Carbon Dioxide Emissions", "El Nino Temperatures", "Volcanic Eruptions"), selected = c("Carbon Dioxide Emissions", "El Nino Temperatures", "Volcanic Eruptions"), checkIcon = list(
                                      yes = icon("ok", lib = "glyphicon")))
-                
-                
               ),
               mainPanel(
                 plotOutput(outputId = "taskPlot")
               ),
               position = "right"
-            ) 
-            
+            )     
     ),
   
   tabPanel("Into the Future",
@@ -270,7 +267,7 @@ server <- function(input, output, session) {
       c <<- 0
     }
     
-    out <- ode23('fun', t0, tfin, sat0) #need to know what ode23 does
+    out <- ode23('fun', t0, tfin, sat0) 
     tv_toInterp <- as.numeric(unlist(out[1]))
     sat_mod_toInterp <- as.numeric(unlist(out[2]))
     sat_mod <- interp1(tv_toInterp, sat_mod_toInterp, time)
